@@ -7,6 +7,7 @@
 $ ./pyleague -h | --help
 
 ```
+$ ./pyleague -h
 pythonusage: pyleague [-h] [-t] [--DELETE_TABLE]
                 [home_team_name] [home_team_goals] [away_team_name]
                 [away_team_goals]
