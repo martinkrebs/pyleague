@@ -32,5 +32,5 @@ optional arguments:
 
 run all with: $ python -m unittest test_lib_pyleague.py -v
 
-run specific with: $ python -m unittest test_lib_pyleague.<class>.<method> -v
+run specific with: $ python -m unittest test_lib_pyleague.TestLibPyleague.a_test_method -v
 
