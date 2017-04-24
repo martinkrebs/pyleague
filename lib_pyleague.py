@@ -132,7 +132,7 @@ def save_record(values):
     else:
         update_record(values)
 
-
+# tested
 def get_league_table():
     """
     Return a record set (list of tuples) of all records ordered by pts col
@@ -145,7 +145,7 @@ def get_league_table():
 
     return league_table
 
-
+# tested
 def delete_table():
     """
     Delete the db table!!
