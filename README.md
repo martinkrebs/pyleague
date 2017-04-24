@@ -26,10 +26,11 @@ optional arguments:
   --DELETE_TABLE   Deletes the league_table WARNING: is not executed if any
                    postioinal arguments are also supplied, for safety.
                    
-                   
+```
+
 ### Running tests
 
 run all with: $ python -m unittest test_lib_pyleague.py -v
 
 run specific with: $ python -m unittest test_lib_pyleague.<class>.<method> -v
-```
+
