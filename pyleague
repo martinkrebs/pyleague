@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+import sys
+# import sqlite3
+from argparse import ArgumentParser
+import lib_pyleague
+# from lib_table_printer import TablePrinter as Printer
+from lib_colour_table_printer import ColourTablePrinter as Printer
+
+# Allows tests to set db to test db
+# lib_pyleague.db = sqlite3.connect('pyleague.db')
+
+
+def main():
+
+    lib_pyleague.create_table_if_not_exists()
+
+    ap = ArgumentParser(
+        description="Manage and display a football league table"
+    )
+    ap.add_argument('home_team_name', nargs='?', default=None,
+                    help='home team name (string)')
+    ap.add_argument('home_team_goals', type=int, nargs='?', default=None,
+                    help='home team goals (int)')
+    ap.add_argument('away_team_name', nargs='?', default=None,
+                    help='away team name (string)')
+    ap.add_argument('away_team_goals', type=int, nargs='?', default=None,
+                    help='away team goals (int)')
+
+    # optional args
+    ap.add_argument('-t', '--table', action='store_true',
+                    help='Display League Table')
+    ap.add_argument(
+        '--DELETE_TABLE', action='store_true',
+        help='Deletes the league_table WARNING: is not executed if \
+        any postioinal arguments are also supplied, for safety.'
+    )
+
+    args = ap.parse_args()
+
+    # check if any of the positional args were None
+    # all(<iterable>) returns True if ALL items in iterable a truthy
+    # any(<iterable>) returns True if ANY item in iterable is truthy
+    positional_args = [args.home_team_name, args.home_team_goals,
+                       args.away_team_name, args.away_team_goals]
+
+    if any(positional_args) and not all(positional_args):
+        print('Error:You must supply ALL four postional args, or NONE of them')
+        sys.exit(1)
+
+    # We only get here if we have ALL or NONE of the postional args
+    # only call update_game_results if we got ALL positional arguments
+    if all(positional_args):
+        lib_pyleague.create_table_if_not_exists()
+        lib_pyleague.update_game_results(
+            args.home_team_name,
+            args.home_team_goals,
+            args.away_team_name,
+            args.away_team_goals
+        )
+
+    # print the league_table if we have NO arguments at all OR if we have -t
+    if args.table or not all(positional_args):
+        tprinter = Printer()
+        tprinter.print_table(lib_pyleague.get_league_table())
+
+    # Only delete table if we have --DELETE_TABLE and NO postional_args
+    # this will help avoid mistakes!
+    if args.DELETE_TABLE and not any(positional_args):
+        lib_pyleague.delete_table()
+
+
+if __name__ == "__main__":
+    main()
