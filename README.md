@@ -4,7 +4,10 @@
 
 ### Terminal help
 
-usage: pyleague [-h] [-t] [--DELETE_TABLE]
+$ ./pyleague -h | --help
+
+```
+pythonusage: pyleague [-h] [-t] [--DELETE_TABLE]
                 [home_team_name] [home_team_goals] [away_team_name]
                 [away_team_goals]
 
@@ -28,3 +31,4 @@ optional arguments:
 run all with: $ python -m unittest test_lib_pyleague.py -v
 
 run specific with: $ python -m unittest test_lib_pyleague.<class>.<method> -v
+```
